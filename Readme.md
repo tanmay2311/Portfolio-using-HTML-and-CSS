@@ -1,4 +1,4 @@
-A personal portfolio website built using HTML5 and modern CSS3 to showcase my skills, projects, and contact information. The design is fully responsive and features a clean, modern aesthetic. 
+A personal portfolio website built using HTML and modern CSS to showcase my skills, projects, and contact information. The design is fully responsive and features a clean, modern aesthetic. 
 
 
 Key Features 
