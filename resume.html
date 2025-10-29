@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resume</title>
+    
+    <style>
+        /* CSS Variables for a clean color scheme */
+        :root {
+            --font-family: 'Inter', Arial, sans-serif;
+            --primary-color: #3b82f6; /* A clear blue */
+            --text-color: #1f2937;    /* Dark gray for main text */
+            --text-light-color: #4b5563; /* Medium gray for details */
+            --background-color: #f9fafb; /* Light background */
+            --white-color: #ffffff;
+            --border-color: #e5e7eb;
+            --skill-bg: #e5e7eb;
+            --skill-text: #4b5563;
+        }
+
+        /* Base Styling */
+        body {
+            font-family: var(--font-family);
+            margin: 0;
+            padding: 20px;
+            background-color: var(--background-color);
+            display: flex;
+            justify-content: center;
+            min-height: 100vh;
+        }
+
+        /* Resume Container */
+        .resume-container {
+            width: 100%;
+            max-width: 900px;
+            background-color: var(--white-color);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+        }
+
+        /* Header */
+        .resume-header {
+            background-color: var(--primary-color);
+            color: var(--white-color);
+            padding: 30px 40px;
+        }
+
+        .resume-header h1 {
+            font-size: 32px;
+            font-weight: 800;
+            margin-bottom: 5px;
+            letter-spacing: 1px;
+        }
+
+        .resume-header p {
+            font-size: 20px;
+            font-weight: 300;
+            opacity: 0.9;
+            margin-bottom: 20px;
+        }
+
+        .contact-info {
+            display: flex;
+            flex-wrap: wrap;
+            font-size: 13px;
+            font-weight: 300;
+        }
+
+        .contact-info span {
+            margin-right: 20px;
+            margin-bottom: 5px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .contact-info a {
+            color: var(--white-color);
+            text-decoration: none;
+        }
+
+        .contact-info a:hover {
+            text-decoration: underline;
+        }
+
+        /* SVG Icon Styling */
+        .contact-info svg {
+            width: 16px;
+            height: 16px;
+            fill: currentColor;
+            margin-right: 4px;
+        }
+
+        /* Main Content Grid */
+        .main-content {
+            padding: 30px 40px;
+            display: flex;
+            flex-direction: column; /* Default stack on mobile */
+            gap: 30px;
+        }
+
+        /* Section Title Styling */
+        h2 {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 10px;
+        }
+
+        h3 {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--text-color);
+            margin: 0;
+        }
+
+        /* Experience and Education Details */
+        .job-entry, .education-entry {
+            margin-bottom: 25px;
+        }
+
+        .job-details, .education-details {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 5px;
+        }
+
+        .job-details p, .education-details p {
+            color: var(--text-light-color);
+            margin: 0;
+            font-size: 15px;
+        }
+
+        .job-details span, .education-details span {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-light-color);
+            flex-shrink: 0; /* Prevent date from wrapping */
+        }
+        
+        .job-entry ul, .education-entry ul {
+            padding-left: 20px;
+            margin-top: 5px;
+            text-align: justify;
+        }
+
+        .job-entry li {
+            color: var(--text-light-color);
+            font-size: 14px;
+            margin-bottom: 8px;
+        }
+
+        /* Skill Pills */
+        .skill-category h3 {
+            font-size: 15px;
+            margin-bottom: 5px;
+            margin-top: 15px;
+        }
+        
+        .skill-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .skill-list span {
+            background-color: var(--skill-bg);
+            color: var(--skill-text);
+            padding: 4px 12px;
+            border-radius: 9999px; /* Pill shape */
+            font-size: 11px;
+            font-weight: 500;
+        }
+        
+        /* --- DESKTOP/TABLET LAYOUT (2 Columns) --- */
+        @media (min-width: 768px) {
+            .main-content {
+                flex-direction: row; /* Two columns on larger screens */
+                gap: 40px;
+            }
+
+            .left-column {
+                flex: 1; /* Take 1 part (1/3) */
+            }
+
+            .right-column {
+                flex: 2; /* Take 2 parts (2/3) */
+                border-left: 1px solid var(--border-color);
+                padding-left: 40px;
+            }
+
+            /* Fix to align with vertical line on desktop */
+            .right-column h2 {
+                padding-left: 0;
+            }
+        }
+        
+        /* Print Styling */
+        @media print {
+            body {
+                padding: 0;
+                background-color: var(--white-color);
+            }
+            .resume-container {
+                box-shadow: none;
+                border: none;
+                border-radius: 0;
+            }
+            .left-column {
+                 /* Ensure column layout on print */
+                padding-right: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Resume Container -->
+    <div class="resume-container">
+        
+        <!-- Header / Contact Information Section -->
+        <header class="resume-header">
+            <h1>Tanmay Sutar</h1>
+            <p>Senior Full-Stack Developer</p>
+            
+            <div class="contact-info">
+                <span>
+                    <svg viewBox="0 0 20 20"><path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"/><path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"/></svg>
+                    tanmaysutar@email.com
+                </span>
+                <span>
+                    <svg viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"/></svg>
+                    9881533475
+                </span>
+                <span>
+                    <svg viewBox="0 0 20 20"><path fill-rule="evenodd" d="M12.586 4.586a2 2 0 112.828 2.828l-3.379 3.379-3.379-3.379a2 2 0 012.828-2.828l.263.264.263-.264zM16 12a4 4 0 100-8 4 4 0 000 8zm-8 4a4 4 0 100-8 4 4 0 000 8zM3 17.25a.75.75 0 00.75.75h12.5a.75.75 0 00.75-.75.25.25 0 00-.25-.25H3.25a.25.25 0 00-.25.25z" clip-rule="evenodd"/></svg>
+                    Mumbai
+                </span>
+                <span>
+                    <svg viewBox="0 0 20 20"><path d="M11 3a1 1 0 100 2h1a1 1 0 100-2h-1zm2 5a1 1 0 100 2h1a1 1 0 100-2h-1zm-2 5a1 1 0 100 2h1a1 1 0 100-2h-1zM4 17a1 1 0 100 2h12a1 1 0 100-2H4z"/><path fill-rule="evenodd" d="M3.293 3.293a1 1 0 000 1.414L6.586 8l-3.293 3.293a1 1 0 101.414 1.414L8 9.414l3.293 3.293a1 1 0 001.414-1.414L9.414 8l3.293-3.293a1 1 0 10-1.414-1.414L8 6.586 4.707 3.293a1 1 0 00-1.414 0z" clip-rule="evenodd"/></svg>
+                    <a href="https://linkedin.com/in/tanmay" target="_blank">LinkedIn/tanmay</a>
+                </span>
+            </div>
+        </header>
+
+        <!-- Main Content Grid -->
+        <div class="main-content">
+
+            <!-- Left Column (Summary & Skills) -->
+            <section class="left-column">
+
+                <!-- Professional Summary -->
+                <div class="summary-section">
+                    <h2>Summary</h2>
+                    <p style="color: var(--text-light-color); font-size: 14px; text-align: justify; line-height: 1.6;">Highly accomplished and detail-oriented Senior Full-Stack Developer with 8+ years of experience in designing, developing, and deploying scalable web applications. Proven ability to lead development teams, architect modern solutions, and improve system performance. Seeking to leverage expertise in an innovative technology environment.</p>
+                </div>
+
+                <!-- Technical Skills -->
+                <div class="skills-section">
+                    <h2>Skills</h2>
+                    
+                    <!-- Skill Category: Frontend -->
+                    <div class="skill-category">
+                        <h3>Frontend</h3>
+                        <div class="skill-list">
+                            <span>React</span>
+                            <span>TypeScript</span>
+                            <span>Next.js</span>
+                            <span>CSS/HTML5</span>
+                        </div>
+                    </div>
+
+                    <!-- Skill Category: Backend & Database -->
+                    <div class="skill-category">
+                        <h3>Backend & DB</h3>
+                        <div class="skill-list">
+                            <span>Node.js</span>
+                            <span>Python (Django)</span>
+                            <span>PostgreSQL</span>
+                            <span>MongoDB</span>
+                        </div>
+                    </div>
+
+                    <!-- Skill Category: DevOps & Cloud -->
+                    <div class="skill-category">
+                        <h3>DevOps & Cloud</h3>
+                        <div class="skill-list">
+                            <span>AWS</span>
+                            <span>Docker</span>
+                            <span>Kubernetes</span>
+                            <span>CI/CD</span>
+                        </div>
+                    </div>
+                </div>
+
+            </section>
+
+            <!-- Right Column (Experience & Education) -->
+            <section class="right-column">
+
+                <!-- Professional Experience -->
+                <div class="experience-section">
+                    <h2>Experience</h2>
+
+                    <!-- Job Entry 1 -->
+                    <div class="job-entry">
+                        <div class="job-details">
+                            <h3 style="font-weight: bold;">Senior Software Engineer</h3>
+                            <span>2020 – Present</span>
+                        </div>
+                        <div class="job-details">
+                            <p style="font-weight: 500;">Tech Innovators Inc., Pune.</p>
+                            <p style="font-size: 13px;">Full-Time</p>
+                        </div>
+                        <ul class="job-description-list">
+                            <li>Led a team of 5 developers in the design and launch of a real-time data analytics platform, serving over 10,000 active users.</li>
+                            <li>Architected and implemented a microservices architecture using Node.js and AWS Lambda, resulting in a 40% reduction in operational costs.</li>
+                            <li>Oversaw frontend migration from jQuery to React/TypeScript, improving application performance metrics by 25%.</li>
+                        </ul>
+                    </div>
+
+                    <!-- Job Entry 2 -->
+                    <div class="job-entry">
+                        <div class="job-details">
+                            <h3 style="font-weight: bold;">Software Developer</h3>
+                            <span>2017 – 2020</span>
+                        </div>
+                        <div class="job-details">
+                            <p style="font-weight: 500;">Creative Solutions LLC, Mumbai.</p>
+                            <p style="font-size: 13px;">Full-Time</p>
+                        </div>
+                        <ul class="job-description-list">
+                            <li>Developed and maintained core features for a client-facing project management tool using Django and Vue.js.</li>
+                            <li>Collaborated with design team to implement responsive UI/UX improvements across all product lines.</li>
+                            <li>Wrote comprehensive unit and integration tests, increasing code coverage to over 85%.</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <!-- Education -->
+                <div class="education-section">
+                    <h2>Education</h2>
+                    
+                    <!-- Education Entry 1 -->
+                    <div class="education-entry">
+                        <div class="education-details">
+                            <h3 style="font-weight: bold;">B.E. in Computer Science</h3>
+                            <span>2017</span>
+                        </div>
+                        <p style="color: var(--text-light-color); font-weight: 500; margin-bottom: 2px;">Mumbai University</p>
+                        <p style="color: var(--text-light-color); font-size: 13px;">Mumbai</p>
+                    </div>
+
+                    <!-- Education Entry 2 -->
+                    <div class="education-entry">
+                        <div class="education-details">
+                            <h3 style="font-weight: bold;">Diploma in Computer Science</h3>
+                            <span>2014</span>
+                        </div>
+                        <p style="color: var(--text-light-color); font-weight: 500; margin-bottom: 2px;">MSBTE</p>
+                        <p style="color: var(--text-light-color); font-size: 13px;">Nashik</p>
+                    </div>
+                </div>
+
+            </section>
+
+        </div>
+    </div>
+
+</body>
+</html>

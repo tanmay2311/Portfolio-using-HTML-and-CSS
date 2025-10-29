@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FutureSphere - The Next Generation Platform</title>
+    
+    <style>
+        /* CSS Variables for Color Palette */
+        :root {
+            --primary: #4F46E5; /* Indigo-600 */
+            --secondary: #818CF8; /* Indigo-400 */
+            --dark-bg: #0F172A; /* Slate-900 */
+            --light-text: #F8FAFC; /* Slate-50 */
+            --body-bg: #F1F5F9; /* Slate-100 */
+            --text-dark: #1F2937; /* Gray-800 */
+            --text-medium: #6B7280; /* Gray-500 */
+        }
+
+        /* Base Styles */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--body-bg);
+            margin: 0;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        /* Header & Navigation */
+        .header {
+            background-color: var(--dark-bg);
+            color: var(--light-text);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+        }
+
+        .header-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 4rem; /* h-16 */
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            letter-spacing: -0.025em; /* tracking-tight */
+            color: var(--secondary);
+            text-decoration: none;
+        }
+
+        .logo-primary {
+            color: var(--primary);
+        }
+
+        .nav-desktop {
+            display: none; /* hidden md:flex */
+            gap: 2rem; /* space-x-8 */
+            align-items: center;
+        }
+
+        .nav-desktop a:not(.btn) {
+            color: var(--light-text);
+            text-decoration: none;
+            transition: color 150ms ease-in-out;
+        }
+
+        .nav-desktop a:not(.btn):hover {
+            color: var(--primary);
+        }
+
+        .btn-signup {
+            padding: 0.25rem 0.75rem; /* px-3 py-1 */
+            font-size: 0.875rem; /* text-sm */
+            font-weight: 500;
+            border-radius: 9999px; /* rounded-full */
+            background-color: var(--primary);
+            color: var(--light-text);
+            text-decoration: none;
+            transition: background-color 150ms ease-in-out;
+        }
+
+        .btn-signup:hover {
+            background-color: #4338CA; /* indigo-700 */
+        }
+        
+        /* --- CSS-Only Mobile Menu Toggle Styles --- */
+
+        /* 1. Hide the actual checkbox input */
+        .menu-checkbox {
+            display: none;
+        }
+
+        /* 2. Style and position the label (the button) */
+        .menu-button-label {
+            display: block; /* md:hidden */
+            cursor: pointer;
+            transition: color 150ms ease-in-out;
+            color: var(--light-text);
+            height: 1.5rem; /* For SVG size consistency */
+            width: 1.5rem; /* For SVG size consistency */
+            
+            /* Positioning the label to the far right on small screens */
+            position: absolute;
+            top: 1rem; /* Adjust based on header height */
+            right: 1rem;
+            z-index: 20; /* Ensure it's above other content */
+        }
+
+        .menu-button-label:hover {
+            color: var(--primary);
+        }
+
+        /* 3. Toggle icon visibility */
+        .menu-icon-close {
+            display: none;
+        }
+        
+        /* 4. Mobile Menu (The controlled element) */
+        .nav-mobile {
+            display: none; /* Hidden by default */
+            background-color: #1F2937; /* gray-800 */
+            padding: 0.5rem 0;
+            /* Ensure it is a direct sibling of the checkbox for the selector below */
+        }
+        
+        /* 5. Show menu and toggle icons when checkbox is checked */
+        #menu-toggle:checked ~ .menu-button-label .menu-icon-open {
+            display: none;
+        }
+
+        #menu-toggle:checked ~ .menu-button-label .menu-icon-close {
+            display: block;
+        }
+        
+        #menu-toggle:checked ~ .nav-mobile {
+            display: block; /* Toggled to visible */
+        }
+        
+        /* Mobile menu links styling */
+        .nav-mobile a {
+            display: block;
+            padding: 0.5rem 0.75rem;
+            margin: 0.25rem 0.5rem;
+            border-radius: 0.375rem;
+            color: var(--light-text);
+            text-decoration: none;
+            font-size: 1rem;
+            font-weight: 500;
+        }
+        
+        .nav-mobile a:hover {
+            background-color: #374151; /* gray-700 */
+        }
+
+        .nav-mobile .btn-signup-mobile {
+            background-color: var(--light-text);
+            color: var(--primary);
+            margin-top: 0.5rem;
+        }
+        
+        .nav-mobile .btn-signup-mobile:hover {
+            background-color: #E5E7EB; /* gray-200 */
+        }
+
+        /* --- END CSS-Only Mobile Menu Toggle Styles --- */
+
+
+        /* Hero Section */
+        .hero-section {
+            padding: 4rem 0; /* py-16 */
+            background-color: white;
+            box-shadow: inset 0 2px 4px 0 rgba(0, 0, 0, 0.05); /* shadow-inner */
+        }
+
+        .hero-layout {
+            display: flex;
+            flex-direction: column; /* flex-col lg:flex-row */
+            align-items: center;
+            gap: 2.5rem; /* gap-10 */
+        }
+
+        .hero-text {
+            text-align: center; /* text-center lg:text-left */
+        }
+        
+        .hero-heading {
+            font-size: 2.5rem; /* text-4xl */
+            line-height: 1.25; /* leading-tight */
+            font-weight: 800; /* font-extrabold */
+            color: var(--text-dark);
+            margin-bottom: 1rem;
+        }
+        
+        .hero-heading-primary {
+            color: var(--primary);
+        }
+
+        .hero-subtext {
+            font-size: 1.125rem; /* text-lg sm:text-xl */
+            color: var(--text-medium);
+            margin-bottom: 2rem;
+            max-width: 40rem; /* max-w-lg */
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero-cta-group {
+            display: flex;
+            flex-direction: column; /* flex-col sm:flex-row */
+            gap: 1rem;
+            justify-content: center; /* justify-center lg:justify-start */
+        }
+        
+        .btn-main, .btn-secondary {
+            padding: 0.75rem 2rem;
+            font-weight: 600;
+            border-radius: 0.75rem; /* rounded-xl */
+            text-decoration: none;
+            text-align: center;
+            transition: all 300ms ease;
+        }
+
+        .btn-main {
+            background-color: var(--primary);
+            color: var(--light-text);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1); /* shadow-xl */
+        }
+
+        .btn-main:hover {
+            background-color: #4338CA;
+            transform: scale(1.05);
+        }
+
+        .btn-secondary {
+            border: 2px solid var(--primary);
+            color: var(--primary);
+            background-color: transparent;
+        }
+        
+        .btn-secondary:hover {
+            background-color: #EEF2FF; /* indigo-50 */
+        }
+
+        .hero-image-wrapper {
+            margin-top: 2.5rem; /* mt-10 lg:mt-0 */
+            width: 100%;
+        }
+
+        .hero-image {
+            width: 100%;
+            height: auto;
+            border-radius: 1rem; /* rounded-2xl */
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1); /* shadow-2xl */
+            object-fit: cover;
+            transition: all 500ms ease-in-out;
+        }
+
+        /* Features Section */
+        .features-section {
+            padding: 4rem 0;
+            background-color: #F9FAFB; /* gray-50 */
+        }
+
+        .features-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .features-header h2 {
+            font-size: 2.25rem; /* text-3xl sm:text-4xl */
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 1rem;
+        }
+
+        .features-header p {
+            color: var(--text-medium);
+            font-size: 1.125rem;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: 1fr; /* grid-cols-1 */
+            gap: 2rem; /* gap-8 */
+        }
+
+        .feature-card {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 0.75rem; /* rounded-xl */
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1); /* shadow-lg */
+            border-top: 4px solid var(--primary); /* border-t-4 border-primary */
+            transition: box-shadow 300ms ease;
+        }
+
+        .feature-card:hover {
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1); /* shadow-2xl */
+        }
+        
+        .feature-card:nth-child(2) {
+            border-top-color: var(--secondary);
+        }
+
+        .icon-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 3rem;
+            width: 3rem;
+            border-radius: 9999px;
+            background-color: rgba(79, 70, 229, 0.1); /* primary/10 */
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+        
+        .feature-card:nth-child(2) .icon-wrapper {
+             background-color: rgba(129, 140, 248, 0.1); /* secondary/10 */
+             color: var(--secondary);
+        }
+
+        .icon-wrapper svg {
+            width: 1.5rem;
+            height: 1.5rem;
+        }
+
+        .feature-card h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 0.75rem;
+        }
+
+        .feature-card p {
+            color: var(--text-medium);
+        }
+
+        /* CTA Section */
+        .cta-section {
+            padding: 4rem 0;
+            background-color: var(--primary);
+            color: var(--light-text);
+            text-align: center;
+        }
+
+        .cta-section h2 {
+            font-size: 2.25rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+        }
+
+        .cta-section p {
+            font-size: 1.25rem;
+            font-weight: 300;
+            margin-bottom: 2rem;
+            max-width: 42rem;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .btn-cta {
+            padding: 0.75rem 2rem;
+            background-color: var(--light-text);
+            color: var(--primary);
+            font-weight: 600;
+            border-radius: 0.75rem;
+            text-decoration: none;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            transition: background-color 300ms ease, transform 300ms ease;
+            display: inline-block;
+        }
+        
+        .btn-cta:hover {
+            background-color: #E5E7EB; /* Gray-200 */
+            transform: translateY(-2px);
+        }
+
+        /* Footer */
+        .footer {
+            background-color: var(--dark-bg);
+            color: var(--light-text);
+            padding: 2.5rem 0;
+            text-align: center;
+            font-size: 0.875rem;
+        }
+        
+        .footer-links a {
+            color: var(--secondary);
+            text-decoration: none;
+            margin: 0 1rem;
+        }
+
+        /* --- Media Queries for Responsiveness --- */
+
+        /* Tablet (md breakpoint: 768px) */
+        @media (min-width: 768px) {
+            .hero-section {
+                padding: 6rem 0; /* py-24 */
+            }
+            .hero-heading {
+                font-size: 3rem; /* text-5xl */
+            }
+            .nav-desktop {
+                display: flex;
+            }
+            /* Hide the CSS-only mobile elements on desktop */
+            .menu-button-label, .menu-checkbox {
+                display: none;
+            }
+            .hero-cta-group {
+                flex-direction: row;
+            }
+            .features-grid {
+                grid-template-columns: repeat(2, 1fr); /* md:grid-cols-2 */
+            }
+        }
+
+        /* Desktop (lg breakpoint: 1024px) */
+        @media (min-width: 1024px) {
+            .hero-text {
+                width: 50%; /* lg:w-1/2 */
+                text-align: left;
+            }
+            .hero-text .hero-subtext {
+                 margin-left: 0;
+                 margin-right: 0;
+            }
+            .hero-layout {
+                flex-direction: row; /* lg:flex-row */
+            }
+            .hero-image-wrapper {
+                margin-top: 0;
+                width: 50%; /* lg:w-1/2 */
+            }
+            .hero-heading {
+                font-size: 3.75rem; /* text-6xl */
+            }
+            .features-grid {
+                grid-template-columns: repeat(3, 1fr); /* lg:grid-cols-3 */
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header & Navigation -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <!-- Logo/Brand Name -->
+                <a href="#" class="logo">
+                    Future<span class="logo-primary">Sphere</span>
+                </a>
+                
+                <!-- Navigation Links (Desktop) -->
+                <nav class="nav-desktop">
+                    <a href="#features">Features</a>
+                    <a href="#about">About</a>
+                    <a href="#pricing">Pricing</a>
+                    <a href="#contact" class="btn btn-signup">Sign Up</a>
+                </nav>
+            </div>
+        </div>
+        
+        <!-- CSS-ONLY MOBILE TOGGLE ELEMENTS -->
+        <!-- 1. The hidden checkbox (MUST be a direct sibling of the menu it controls) -->
+        <input type="checkbox" id="menu-toggle" class="menu-checkbox" aria-hidden="true">
+        
+        <!-- 2. The label (visible hamburger/close button) -->
+        <label for="menu-toggle" class="menu-button-label">
+            <!-- Hamburger Icon -->
+            <svg class="menu-icon-open" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+            <!-- Close Icon -->
+            <svg class="menu-icon-close" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+        </label>
+
+        <!-- 3. The controlled element (Mobile Menu, MUST be a sibling of the checkbox) -->
+        <div id="mobile-menu" class="nav-mobile">
+            <div class="nav-mobile-content">
+                <a href="#features">Features</a>
+                <a href="#about">About</a>
+                <a href="#pricing">Pricing</a>
+                <a href="#contact" class="btn-signup-mobile">Sign Up</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content Area -->
+    <main>
+        <!-- Hero Section -->
+        <section class="hero-section">
+            <div class="container">
+                <div class="hero-layout">
+                    <!-- Text Content -->
+                    <div class="hero-text">
+                        <h1 class="hero-heading">
+                            Unleash Your Potential with <span class="hero-heading-primary">Intelligent Automation</span>
+                        </h1>
+                        <p class="hero-subtext">
+                            FutureSphere integrates cutting-edge AI to streamline your workflows, boost productivity, and drive exponential growth.
+                        </p>
+                        <div class="hero-cta-group">
+                            <a href="#contact" class="btn-main">
+                                Start Free Trial
+                            </a>
+                            <a href="#features" class="btn-secondary">
+                                Learn More
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Responsive Image -->
+                    <div class="hero-image-wrapper">
+                        <!-- Placeholder image for a modern dashboard -->
+                        <img 
+                            src="https://placehold.co/800x550/4F46E5/F8FAFC?text=FutureSphere+Dashboard" 
+                            alt="A responsive dashboard illustration showing data analytics." 
+                            class="hero-image"
+                            onerror="this.src='https://placehold.co/800x550/4F46E5/F8FAFC?text=Image+Load+Failed'"
+                        >
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Features Section -->
+        <section id="features" class="features-section">
+            <div class="container">
+                <div class="features-header">
+                    <h2>Core Features Designed For You</h2>
+                    <p>Powerful tools built on a flexible, scalable architecture.</p>
+                </div>
+
+                <!-- Feature Grid (Responsive layout) -->
+                <div class="features-grid">
+                    
+                    <!-- Feature 1 -->
+                    <div class="feature-card">
+                        <div class="icon-wrapper">
+                            <!-- Icon: Scalability -->
+                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19V6l12-3v16l-12 3zm0 0l-12-3M21 3v16l-12 3m0-3V6m-12-3l12 3"></path></svg>
+                        </div>
+                        <h3>Instant Scalability</h3>
+                        <p>Scale up or down instantly with cloud-native infrastructure, responding to your demand in real-time.</p>
+                    </div>
+
+                    <!-- Feature 2 -->
+                    <div class="feature-card">
+                        <div class="icon-wrapper">
+                            <!-- Icon: AI Insights -->
+                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                        </div>
+                        <h3>AI-Powered Insights</h3>
+                        <p>Get predictive analytics and deep insights driven by our proprietary machine learning models.</p>
+                    </div>
+
+                    <!-- Feature 3 -->
+                    <div class="feature-card">
+                        <div class="icon-wrapper">
+                            <!-- Icon: Integration -->
+                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c1.657 0 3 .895 3 2s-1.343 2-3 2-3 .895-3 2 1.343 2 3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V5m0 16v-3m-6-4H2m14 0h4M4 14h.01M16 14h.01M6 5.879l1.414-1.414M16.121 5.879l1.414-1.414M6 18.121l1.414 1.414M16.121 18.121l1.414 1.414"></path></svg>
+                        </div>
+                        <h3>Seamless Integration</h3>
+                        <p>Connect with hundreds of existing tools and services using our robust and well-documented API.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Call to Action (CTA) Section -->
+        <section id="contact" class="cta-section">
+            <div class="container">
+                <h2>Ready to Transform Your Business?</h2>
+                <p>
+                    Join thousands of professionals already using FutureSphere to achieve their goals faster.
+                </p>
+                <a href="#" class="btn-cta">
+                    Get Started Today
+                </a>
+            </div>
+        </section>
+    </main>
+    
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-links" style="margin-bottom: 0.5rem;">
+                <a href="#about">About Us</a> | 
+                <a href="#features">Privacy Policy</a> | 
+                <a href="#pricing">Terms of Service</a>
+            </div>
+            &copy; 2024 FutureSphere, Inc. All rights reserved.
+        </div>
+    </footer>
+</body>
+</html>

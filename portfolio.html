@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio</title>
+    <!-- Use Inter font family -->
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+        
+        /* Custom CSS Variables */
+        :root {
+            --color-primary: #4f46e5;   /* Indigo-600 */
+            --color-secondary: #1f2937; /* Gray-800 */
+            --color-accent: #10b981;    /* Emerald-500 */
+            --color-bg: #111827;        /* Gray-900 */
+            --color-text: #f3f4f6;      /* Gray-100 */
+            --color-subtle: #9ca3af;    /* Gray-400 */
+        }
+
+        /* Base Styles */
+        body {
+            font-family: 'Inter', sans-serif;
+            scroll-behavior: smooth;
+            background-color: var(--color-bg);
+            color: var(--color-text);
+            margin: 0;
+            padding: 0;
+            line-height: 1.5;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Custom scrollbar style for aesthetics */
+        body::-webkit-scrollbar {
+            width: 8px;
+        }
+        body::-webkit-scrollbar-thumb {
+            background-color: var(--color-primary);
+            border-radius: 4px;
+        }
+        body::-webkit-scrollbar-track {
+            background-color: var(--color-secondary);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        section {
+            padding: 5rem 0; 
+        }
+
+        .section-title {
+            font-size: 2.25rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 3rem;
+            color: var(--color-text);
+        }
+
+        /* 1. Header & Navigation */
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            background-color: rgba(31, 41, 55, 0.95);
+            backdrop-filter: blur(4px);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 1rem;
+        }
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--color-accent);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        .logo:hover {
+            color: var(--color-primary);
+        }
+        .desktop-nav {
+            display: none;
+            gap: 2rem; /* space-x-8 */
+        }
+        .nav-link {
+            color: #d1d5db; /* gray-300 */
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        .nav-link:hover {
+            color: var(--color-accent);
+        }
+        .mobile-menu-button {
+            border: none;
+            background: none;
+            color: #d1d5db;
+            cursor: pointer;
+            padding: 0;
+        }
+
+        /* 2. Hero Section */
+        #home {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+        }
+        .hero-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 3rem; 
+            width: 100%;
+            text-align: center;
+        }
+        .hero-subtitle {
+            font-size: 1.25rem;
+            color: var(--color-accent);
+            margin-bottom: 1rem;
+        }
+        .hero-title {
+            font-size: 3.75rem; /* 6xl */
+            line-height: 1.2;
+            font-weight: 800;
+            color: white;
+            margin-bottom: 1rem;
+        }
+        .hero-title .highlight {
+            color: var(--color-primary);
+        }
+        .hero-description {
+            font-size: 1.125rem;
+            color: var(--color-subtle);
+            margin-bottom: 2rem;
+            max-width: 42rem;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .hero-button {
+            display: inline-block;
+            padding: 0.75rem 2rem;
+            background-color: var(--color-primary);
+            color: white;
+            font-weight: 600;
+            border-radius: 9999px;
+            text-decoration: none;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s, transform 0.3s;
+        }
+        .hero-button:hover {
+            background-color: #3730a3;
+            transform: scale(1.05);
+        }
+        .hero-img-container {
+            display: flex;
+            justify-content: center;
+        }
+        .hero-image {
+            width: 16rem;
+            height: 16rem;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 4px solid var(--color-accent);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5);
+            transition: transform 0.5s;
+        }
+        .hero-image:hover {
+            transform: rotate(3deg);
+        }
+
+        /* 3. About Section */
+        #about {
+            background-color: rgba(31, 41, 55, 0.5); 
+        }
+        .about-content {
+            max-width: 64rem;
+            margin: 0 auto;
+            font-size: 1.125rem;
+            text-align: justify;
+            line-height: 1.75;
+            color: #d1d5db; /* gray-300 */
+        }
+        .about-content p {
+            margin-bottom: 1.5rem;
+        }
+
+        /* 4. Skills Section */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+        }
+        .skill-card {
+            background-color: var(--color-secondary);
+            padding: 1.5rem;
+            border-radius: 0.75rem;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+            border: 1px solid #374151;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .skill-card:hover {
+            transform: scale(1.03);
+            box-shadow: 0 10px 15px -3px rgba(79, 70, 229, 0.5);
+        }
+        .skill-icon {
+            font-size: 2.5rem;
+            color: var(--color-accent);
+            display: block;
+            margin-bottom: 0.75rem;
+        }
+        .skill-card h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+        .skill-card p {
+            color: var(--color-subtle);
+            font-size: 0.875rem;
+        }
+
+        /* 5. Projects Section */
+        #projects {
+            background-color: rgba(31, 41, 55, 0.5); 
+        }
+        .projects-container {
+            display: flex;
+            flex-direction: column;
+            gap: 2.5rem;
+        }
+        .project-card {
+            background-color: var(--color-secondary);
+            border-radius: 0.75rem;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            transition: transform 0.5s, box-shadow 0.5s;
+            flex: 1;
+        }
+        .project-card:hover {
+            box-shadow: 0 10px 15px -3px rgba(16, 185, 129, 0.4);
+            transform: translateY(-4px);
+        }
+        .project-card img {
+            width: 100%;
+            height: 12rem;
+            object-fit: cover;
+        }
+        .project-card-content {
+            padding: 1.5rem;
+        }
+        .project-card h3 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+        .project-card-1 h3 { color: var(--color-accent); }
+        .project-card-2 h3 { color: var(--color-primary); }
+        .project-card-3 h3 { color: #d1d5db; }
+        .project-card p {
+            color: var(--color-subtle);
+            margin-bottom: 1rem;
+        }
+        .project-card .small-text {
+             font-size: 0.875rem;
+             font-weight: 500;
+             color: #6b7280; /* gray-500 */
+        }
+
+        /* 6. Contact Section */
+        .contact-container {
+            max-width: 48rem;
+            margin: 0 auto;
+        }
+        .contact-form {
+            background-color: var(--color-secondary);
+            padding: 2rem;
+            border-radius: 0.75rem;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+            border: 1px solid #374151;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+        }
+        .form-label {
+            display: block;
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: #d1d5db;
+            margin-bottom: 0.5rem;
+        }
+        .form-input, .form-textarea {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            background-color: #1f2937;
+            border: 1px solid #4b5563;
+            border-radius: 0.5rem;
+            color: white;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+        .form-input:focus, .form-textarea:focus {
+            outline: none;
+            border-color: var(--color-primary);
+            box-shadow: 0 0 0 2px var(--color-primary);
+        }
+        .form-textarea {
+            resize: vertical;
+        }
+        .form-alert {
+            color: #f87171;
+            font-size: 0.875rem;
+            text-align: center;
+            font-weight: 500;
+        }
+        .submit-button {
+            width: 100%;
+            padding: 0.75rem;
+            background-color: var(--color-accent);
+            color: white;
+            font-weight: 600;
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+        .submit-button:hover {
+            background-color: #059669;
+            transform: scale(1.01);
+        }
+
+        /* 7. Footer */
+        footer {
+            background-color: #1f2937;
+            padding: 1rem 0;
+            margin-top: 2.5rem;
+            text-align: center;
+            color: #9ca3af;
+        }
+
+        /* --- Media Queries for Responsiveness --- */
+        @media (min-width: 768px) {
+            /* Header/Nav */
+            .desktop-nav { display: flex; } /* Always show desktop nav on md and up */
+
+            /* Hero Section (Switch to Row) */
+            .hero-content {
+                flex-direction: row;
+                text-align: left;
+            }
+            .hero-text {
+                width: 60%;
+            }
+            .hero-img-container {
+                width: 40%;
+            }
+            .hero-title {
+                font-size: 4.5rem;
+            }
+
+            /* Skills Grid (Switch to 3-5 columns) */
+            .skills-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+            /* Projects (Switch to Row) */
+            .projects-container {
+                flex-direction: row;
+            }
+            /* Contact Form (Switch to 2 columns) */
+            .form-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        @media (min-width: 1024px) {
+            .skills-grid {
+                grid-template-columns: repeat(5, 1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 1. Header & Navigation (Semantic HTML) -->
+    <header>
+        <nav class="container">
+            <a href="#home" class="logo">
+                Tanmay Rajesh Sutar
+            </a>
+            <!-- Desktop Navigation -->
+            <div class="desktop-nav">
+                <a href="#about" class="nav-link">About</a>
+                <a href="#skills" class="nav-link">Skills</a>
+                <a href="#projects" class="nav-link">Projects</a>
+                <a href="#contact" class="nav-link">Contact</a>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <!-- 2. Hero Section (Flexbox for alignment) -->
+        <section id="home" class="container">
+            <div class="hero-content">
+                <!-- Text Content (Flex item 1) -->
+                <div class="hero-text">
+                    <p class="hero-subtitle">Hello, I'm</p>
+                    <h1 class="hero-title">
+                        A <span class="highlight">Responsive</span> Web Developer
+                    </h1>
+                    <p class="hero-description">
+                        Specializing in front-end performance and intuitive UI/UX. 
+                        My goal is to shave milliseconds off load times and add hours of clarity to the user's journey.
+                        Code Quality is my non-negotiable standard.
+                    </p>
+                    <a href="#projects" class="hero-button">
+                        View My Work
+                    </a>
+                </div>
+                <!-- Profile Image (Flex item 2) -->
+                <div class="hero-img-container">
+                    <img
+                        src="./Images/Tanmay Sutar.png"
+                        alt="Professional developer profile picture"
+                        class="hero-image"
+                        
+                    >
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. About Section (Simple structure) -->
+        <section id="about">
+            <div class="container">
+                <h2 class="section-title">About Me</h2>
+                <div class="about-content">
+                    <p>
+                        I am a dedicated Web Developer with a solid foundation in Information Technology (IT), holding a Bachelor of Engineering degree from Mumbai University. My academic journey provided me with a strong understanding of computer science fundamentals, but my true passion lies in turning complex ideas into intuitive, high-performance web applications.
+                    </p>
+                    <p>
+                        While my degree provided the technical bedrock, the heart of my learning came through hands-on web projects. Throughout my college career, I actively sought out opportunities to upgrade my skills by designing and developing several full-stack and front-end solutions. This practical work allowed me to move beyond theoretical concepts and master the entire development lifecycle, from initial wireframing to deployment and optimization.
+                    </p>
+                    <p>
+                        I thrive on solving technical challenges and constantly seek out the latest industry trends—whether it's mastering a new framework or implementing a cutting-edge design pattern. I am a detail-oriented developer dedicated to delivering projects that are not just functional, but also fast, future-proof, and delightful to use.
+                    </p>
+                    <p>
+                        Let's build something impactful together.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. Skills Section (Grid Layout for Responsiveness) -->
+        <section id="skills">
+            <div class="container">
+                <h2 class="section-title">Core Skills & Concepts</h2>
+                <!-- Responsive Grid Layout -->
+                <div class="skills-grid">
+
+                    <!-- Skill Card 1: HTML & Semantics -->
+                    <div class="skill-card">
+                        <span class="skill-icon">
+                            &lt; / &gt;
+                        </span>
+                        <h3>Semantic HTML5</h3>
+                        <p>Correct structure and accessibility fundamentals.</p>
+                    </div>
+
+                    <!-- Skill Card 2: CSS & Styling  -->
+                    <div class="skill-card">
+                        <span class="skill-icon">
+                            #
+                        </span>
+                        <h3>Advanced CSS</h3>
+                        <p>Colors, fonts, text styling, and backgrounds.</p>
+                    </div>
+
+                    <!-- Skill Card 3: Box Model & Positioning  -->
+                    <div class="skill-card">
+                        <span class="skill-icon">
+                            &#9633;
+                        </span>
+                        <h3>Box Model Mastery</h3>
+                        <p>Padding, margin, border, and precise positioning.</p>
+                    </div>
+
+                    <!-- Skill Card 4: Flexbox  -->
+                    <div class="skill-card">
+                        <span class="skill-icon">
+                            &#8644;
+                        </span>
+                        <h3>Flexbox Layout</h3>
+                        <p>One-dimensional component alignment and distribution.</p>
+                    </div>
+
+                    <!-- Skill Card 5: Grid Layout  -->
+                    <div class="skill-card">
+                        <span class="skill-icon">
+                            &#9638;
+                        </span>
+                        <h3>CSS Grid</h3>
+                        <p>Two-dimensional layout using template areas and rows.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 5. Projects Section (Flexbox & Responsive Design) -->
+        <section id="projects">
+            <div class="container">
+                <h2 class="section-title">Featured Projects</h2>
+                <!-- Responsive Flex for Project Cards -->
+                <div class="projects-container">
+
+                    <!-- Project Card 1: Responsive Landing Page -->
+                    <article class="project-card">
+                        <img src="https://placehold.co/600x400/10b981/ffffff?text=Responsive+Landing+Page" alt="Screenshot of the Responsive Landing Page project">
+                        <div class="project-card-content">
+                            <h3 class="project-card-1">Responsive Landing Page</h3>
+                            <p>
+                                Built to demonstrate mastery of Media Queries and Mobile-First design. Ensures optimal experience on all device sizes.
+                            </p>
+                            <p class="small-text">
+                                Skills Used: HTML Structure, Media Queries, Flexbox, Responsive Images.
+                            </p>
+                            <p>
+                                <a href="./responsive_landing_page.html" target="_blank">View Live Project</a>
+                            </p>
+                        </div>
+                    </article>
+
+                    <!-- Project Card 2: Styled Product Page  -->
+                    <article class="project-card">
+                        <img src="https://placehold.co/600x400/4f46e5/ffffff?text=Styled+Product+Page" alt="Screenshot of the Styled Product Page project">
+                        <div class="project-card-content">
+                            <h3 class="project-card-2">Styled Product Page</h3>
+                            <p>
+                                A detailed product layout focusing on advanced CSS styling, Box Model manipulation, and custom typography.
+                            </p>
+                            <p class="small-text">
+                                Skills Used: CSS Styling, Box Model, Positioning (Static, Relative, Absolute).
+                            </p>
+                            <p>
+                                <a href="./styled_product_page.html" target="_blank">View Live Project</a>
+                            </p>
+                        </div>
+                    </article>
+                    
+                    <!-- Project Card 3: Resume Page  -->
+                    <article class="project-card">
+                        <img src="https://placehold.co/600x400/6b7280/ffffff?text=Simple+Resume+Page" alt="Screenshot of the Simple Resume Page project">
+                        <div class="project-card-content">
+                            <h3 class="project-card-3">Simple Resume Page</h3>
+                            <p>
+                                Fundamental HTML structure project showcasing semantic use of lists, tables, and forms for content organization.
+                            </p>
+                            <p class="small-text">
+                                Skills Used: HTML Basics, Lists, Tables, Forms, Semantic HTML.
+                            </p>
+                            <p>
+                                <a href="./resume.html" target="_blank">View Live Project</a>
+                            </p>
+                        </div>
+                    </article>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- 6. Contact Section (Form and Information) -->
+        <section id="contact">
+            <div class="container contact-container">
+                <h2 class="section-title">Get In Touch</h2>
+                <!-- This is a standard, non-functional HTML form structure. -->
+                <form class="contact-form">
+                    <p class="form-alert">
+                        Note: This is a static HTML form and will not send an email without server-side code or an external service.
+                    </p>
+                    <div class="form-grid">
+                        <div>
+                            <label for="name" class="form-label">Full Name</label>
+                            <input type="text" id="name" name="name" placeholder="John Doe" required
+                                class="form-input">
+                        </div>
+                        <div>
+                            <label for="email" class="form-label">Email Address</label>
+                            <!-- Changed name from '_replyto' to 'email' for a standard form -->
+                            <input type="email" id="email" name="email" placeholder="you@example.com" required
+                                class="form-input">
+                        </div>
+                    </div>
+                    <div>
+                        <label for="subject" class="form-label">Subject</label>
+                        <input type="text" id="subject" name="subject" placeholder="Project Inquiry" required
+                            class="form-input">
+                    </div>
+                    <div>
+                        <label for="message" class="form-label">Message</label>
+                        <textarea id="message" name="message" rows="4" placeholder="I'd like to discuss a project..." required
+                            class="form-textarea"></textarea>
+                    </div>
+                    <button type="submit" class="submit-button">
+                        Send Message
+                    </button>
+                    <!-- IMPORTANT: The form is now a standard, static HTML form without an external service. -->
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <!-- 7. Footer (Semantic HTML) -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Portfolio. All rights reserved.</p>
+            <p class="mt-2 text-sm">Built with Semantic HTML and Pure CSS.</p>
+        </div>
+    </footer>
+</body>
+</html>
